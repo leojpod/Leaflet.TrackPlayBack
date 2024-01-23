@@ -330,7 +330,7 @@ export const Draw = L.Class.extend({
     } else {
       this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
     }
-    if (this._map.hasLayer(this._trackPointFeatureGroup)) {
+    if (this._trackPointFeatureGroup && this._map.hasLayer(this._trackPointFeatureGroup)) {
       this._trackPointFeatureGroup.clearLayers()
     }
   },
