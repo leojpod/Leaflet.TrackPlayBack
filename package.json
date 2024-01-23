@@ -2,6 +2,7 @@
   "name": "leaflet-plugin-trackplayback",
   "version": "1.0.5",
   "description": "track playback plugin based on leaflet",
+  "source": "src/index.js",
   "main": "dist/leaflet.trackplayback.js",
   "directories": {
     "example": "examples",
@@ -40,5 +41,9 @@
     "eslint-plugin-standard": "^4.0.0",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "prettier": "^3.2.4"
   }
 }
