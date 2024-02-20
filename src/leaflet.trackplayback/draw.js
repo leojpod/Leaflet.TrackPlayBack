@@ -1,15 +1,12 @@
 import L from 'leaflet'
 
-import {
-  TrackLayer
-} from './tracklayer'
+import { TrackLayer } from './tracklayer'
 
 /**
  * 绘制类
  * 完成轨迹线、轨迹点、目标物的绘制工作
  */
 export const Draw = L.Class.extend({
-
   trackPointOptions: {
     isDraw: false,
     useCanvas: true,
@@ -114,10 +111,13 @@ export const Draw = L.Class.extend({
     this._bufferTracks = []
     this._trackLayer.off('update', this._trackLayerUpdate, this)
     this._map.off('mousemove', this._onmousemoveEvt, this)
-    if (this._map.hasLayer(this._trackLayer)) {
+    if (this._trackLayer && this._map.hasLayer(this._trackLayer)) {
       this._map.removeLayer(this._trackLayer)
     }
-    if (this._map.hasLayer(this._trackPointFeatureGroup)) {
+    if (
+      this._trackPointFeatureGroup &&
+      this._map.hasLayer(this._trackPointFeatureGroup)
+    ) {
       this._map.removeLayer(this._trackPointFeatureGroup)
     }
   },
@@ -130,9 +130,11 @@ export const Draw = L.Class.extend({
   _trackLayerUpdate: function () {
     if (this._bufferTracks.length) {
       this._clearLayer()
-      this._bufferTracks.forEach(function (element, index) {
-        this._drawTrack(element)
-      }.bind(this))
+      this._bufferTracks.forEach(
+        function (element, index) {
+          this._drawTrack(element)
+        }.bind(this)
+      )
     }
   },
 
@@ -164,7 +166,7 @@ export const Draw = L.Class.extend({
     }
     this._canvas.style.cursor = 'default'
     let latlng = L.latLng(trackpoint.lat, trackpoint.lng)
-    let tooltip = this._tooltip = L.tooltip(this.toolTipOptions)
+    let tooltip = (this._tooltip = L.tooltip(this.toolTipOptions))
     tooltip.setLatLng(latlng)
     tooltip.addTo(this._map)
     tooltip.setContent(this._getTooltipText(trackpoint))
@@ -249,7 +251,10 @@ export const Draw = L.Class.extend({
       if (trackpoints[i].isOrigin) {
         let latLng = L.latLng(trackpoints[i].lat, trackpoints[i].lng)
         let cricleMarker = L.circleMarker(latLng, this.trackPointOptions)
-        cricleMarker.bindTooltip(this._getTooltipText(trackpoints[i]), this.toolTipOptions)
+        cricleMarker.bindTooltip(
+          this._getTooltipText(trackpoints[i]),
+          this.toolTipOptions
+        )
         this._trackPointFeatureGroup.addLayer(cricleMarker)
       }
     }
@@ -302,7 +307,13 @@ export const Draw = L.Class.extend({
     this._ctx.save()
     this._ctx.translate(point.x, point.y)
     this._ctx.rotate((Math.PI / 180) * dir)
-    this._ctx.drawImage(this._targetImg, 0 - offset.x, 0 - offset.y, width, height)
+    this._ctx.drawImage(
+      this._targetImg,
+      0 - offset.x,
+      0 - offset.y,
+      width,
+      height
+    )
     this._ctx.restore()
   },
 
@@ -330,13 +341,18 @@ export const Draw = L.Class.extend({
     } else {
       this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height)
     }
-    if (this._trackPointFeatureGroup && this._map.hasLayer(this._trackPointFeatureGroup)) {
+    if (
+      this._trackPointFeatureGroup &&
+      this._map.hasLayer(this._trackPointFeatureGroup)
+    ) {
       this._trackPointFeatureGroup.clearLayers()
     }
   },
 
   _getLayerPoint (trackpoint) {
-    return this._map.latLngToLayerPoint(L.latLng(trackpoint.lat, trackpoint.lng))
+    return this._map.latLngToLayerPoint(
+      L.latLng(trackpoint.lat, trackpoint.lng)
+    )
   }
 })
 
