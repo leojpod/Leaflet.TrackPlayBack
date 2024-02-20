@@ -609,8 +609,8 @@ const $5dace5a9464e31c4$export$dca20402ebea5ece = (0, ($parcel$interopDefault($g
         this._bufferTracks = [];
         this._trackLayer.off("update", this._trackLayerUpdate, this);
         this._map.off("mousemove", this._onmousemoveEvt, this);
-        if (this._map.hasLayer(this._trackLayer)) this._map.removeLayer(this._trackLayer);
-        if (this._map.hasLayer(this._trackPointFeatureGroup)) this._map.removeLayer(this._trackPointFeatureGroup);
+        if (this._trackLayer && this._map.hasLayer(this._trackLayer)) this._map.removeLayer(this._trackLayer);
+        if (this._trackPointFeatureGroup && this._map.hasLayer(this._trackPointFeatureGroup)) this._map.removeLayer(this._trackPointFeatureGroup);
     },
     clear: function() {
         this._clearLayer();
