@@ -868,8 +868,8 @@ const $c3c07c19b1a0c30f$export$bf556031c59eeba6 = (0, ($parcel$interopDefault($g
         return this;
     },
     dispose: function() {
-        this.clock.off("tick", this._tick);
-        this.draw.remove();
+        this.clock?.off("tick", this._tick);
+        this.draw?.remove();
         this.tracks = null;
         this.draw = null;
         this.trackController = null;
