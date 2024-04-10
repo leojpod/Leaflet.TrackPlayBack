@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js src --fix",
     "webpack": "webpack --config webpack.config.js",
-    "build": "npm run lint && npm run webpack"
+    "build": "npm run lint && npx parcel build"
   },
   "repository": {
     "type": "git",

@@ -14,7 +14,7 @@ import * as Util from "./util";
  * [single track data, single track data, single track data]
  */
 export const TrackPlayBack = L.Class.extend({
-  includes: L.Evented.prototype || L.Mixin.Events,
+  includes: L.Evented.prototype,
 
   initialize: function (data, map, options = {}) {
     let drawOptions = {
@@ -29,6 +29,7 @@ export const TrackPlayBack = L.Class.extend({
     this.clock = new Clock(this.trackController, options.clockOptions);
 
     this.clock.on("tick", this._tick, this);
+    this.clock.on("ended", this._ended, this);
   },
   start: function () {
     this.clock.start();
@@ -91,6 +92,7 @@ export const TrackPlayBack = L.Class.extend({
   },
   dispose: function () {
     this.clock?.off("tick", this._tick);
+    this.clock?.off("ended", this._ended);
     this.draw?.remove();
     this.tracks = null;
     this.draw = null;
@@ -99,6 +101,9 @@ export const TrackPlayBack = L.Class.extend({
   },
   _tick: function (e) {
     this.fire("tick", e);
+  },
+  _ended: function (e) {
+    this.fire("ended", e);
   },
   _initTracks: function (data) {
     let tracks = [];

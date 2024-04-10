@@ -365,7 +365,7 @@ const $e2f7209eae6f2c31$export$7156f4d04fb8a47a = function(tracks, draw, options
 
 
 const $9a9040bba3d6edb6$export$9735c82c4bae3302 = (0, ($parcel$interopDefault($gXNCa$leaflet))).Class.extend({
-    includes: (0, ($parcel$interopDefault($gXNCa$leaflet))).Evented.prototype || (0, ($parcel$interopDefault($gXNCa$leaflet))).Mixin.Events,
+    includes: (0, ($parcel$interopDefault($gXNCa$leaflet))).Evented.prototype,
     options: {
         // 播放速度
         // 计算方法 fpstime * Math.pow(2, this._speed - 1)
@@ -460,6 +460,7 @@ const $9a9040bba3d6edb6$export$9735c82c4bae3302 = (0, ($parcel$interopDefault($g
         if (this._curTime >= this._endTime) {
             this._curTime = this._endTime;
             isPause = true;
+            this.fire("ended");
         }
         this._trackController.drawTracksByTime(this._curTime);
         this.fire("tick", {
@@ -794,7 +795,7 @@ const $5dace5a9464e31c4$export$e529deb2bfd496dc = function(map, options) {
 
 
 const $c3c07c19b1a0c30f$export$bf556031c59eeba6 = (0, ($parcel$interopDefault($gXNCa$leaflet))).Class.extend({
-    includes: (0, ($parcel$interopDefault($gXNCa$leaflet))).Evented.prototype || (0, ($parcel$interopDefault($gXNCa$leaflet))).Mixin.Events,
+    includes: (0, ($parcel$interopDefault($gXNCa$leaflet))).Evented.prototype,
     initialize: function(data, map, options = {}) {
         let drawOptions = {
             trackPointOptions: options.trackPointOptions,
@@ -807,6 +808,7 @@ const $c3c07c19b1a0c30f$export$bf556031c59eeba6 = (0, ($parcel$interopDefault($g
         this.trackController = new (0, $e2f7209eae6f2c31$export$40a0242a5dec07f5)(this.tracks, this.draw);
         this.clock = new (0, $9a9040bba3d6edb6$export$9735c82c4bae3302)(this.trackController, options.clockOptions);
         this.clock.on("tick", this._tick, this);
+        this.clock.on("ended", this._ended, this);
     },
     start: function() {
         this.clock.start();
@@ -869,6 +871,7 @@ const $c3c07c19b1a0c30f$export$bf556031c59eeba6 = (0, ($parcel$interopDefault($g
     },
     dispose: function() {
         this.clock?.off("tick", this._tick);
+        this.clock?.off("ended", this._ended);
         this.draw?.remove();
         this.tracks = null;
         this.draw = null;
@@ -877,6 +880,9 @@ const $c3c07c19b1a0c30f$export$bf556031c59eeba6 = (0, ($parcel$interopDefault($g
     },
     _tick: function(e) {
         this.fire("tick", e);
+    },
+    _ended: function(e) {
+        this.fire("ended", e);
     },
     _initTracks: function(data) {
         let tracks = [];

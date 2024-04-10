@@ -3,8 +3,7 @@ import L from 'leaflet'
  * 时钟类，控制轨迹播放动画
  */
 export const Clock = L.Class.extend({
-
-  includes: L.Evented.prototype || L.Mixin.Events,
+  includes: L.Evented.prototype,
 
   options: {
     // 播放速度
@@ -119,6 +118,7 @@ export const Clock = L.Class.extend({
     if (this._curTime >= this._endTime) {
       this._curTime = this._endTime
       isPause = true
+      this.fire('ended')
     }
     this._trackController.drawTracksByTime(this._curTime)
     this.fire('tick', {
