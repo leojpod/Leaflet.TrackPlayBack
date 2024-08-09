@@ -74,7 +74,7 @@ export const Track = L.Class.extend({
     let p0 = this.getTrackPointByTime(t0)
     let p1 = this.getTrackPointByTime(t1)
     startPt = L.point(p0.lng, p0.lat)
-    endPt_ = L.point(p1.lng, p1.lat)
+    let endPt_ = L.point(p1.lng, p1.lat)
     let s = startPt.distanceTo(endPt)
     // 不同时间在同一个点情形
     if (s <= 0) {

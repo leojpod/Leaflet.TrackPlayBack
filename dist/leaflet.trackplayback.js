@@ -247,7 +247,7 @@ const $b307d268df14f4b2$export$13921ac0cc260818 = (0, ($parcel$interopDefault($g
         let p0 = this.getTrackPointByTime(t0);
         let p1 = this.getTrackPointByTime(t1);
         startPt = (0, ($parcel$interopDefault($gXNCa$leaflet))).point(p0.lng, p0.lat);
-        endPt_ = (0, ($parcel$interopDefault($gXNCa$leaflet))).point(p1.lng, p1.lat);
+        let endPt_ = (0, ($parcel$interopDefault($gXNCa$leaflet))).point(p1.lng, p1.lat);
         let s = startPt.distanceTo(endPt);
         // 不同时间在同一个点情形
         if (s <= 0) {
