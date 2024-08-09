@@ -1,18 +1,15 @@
 import L from 'leaflet'
 
-import {
-  isArray
-} from './util'
+import { isArray } from './util'
 
 /**
  * 轨迹类
  */
 export const Track = L.Class.extend({
-
   initialize: function (trackData = [], options) {
     L.setOptions(this, options)
 
-    trackData.forEach(item => {
+    trackData.forEach((item) => {
       // 添加 isOrigin 字段用来标识是否是原始采样点，与插值点区分开
       item.isOrigin = true
     })
@@ -93,7 +90,10 @@ export const Track = L.Class.extend({
     let x = startPt.x + step * cosx
     let y = startPt.y + step * sinx
     // 求目标的运动方向，0-360度
-    let dir = endPt.x >= startPt.x ? (Math.PI * 0.5 - Math.asin(sinx)) * 180 / Math.PI : (Math.PI * 1.5 + Math.asin(sinx)) * 180 / Math.PI
+    let dir =
+      endPt.x >= startPt.x
+        ? ((Math.PI * 0.5 - Math.asin(sinx)) * 180) / Math.PI
+        : ((Math.PI * 1.5 + Math.asin(sinx)) * 180) / Math.PI
 
     if (endpoint) {
       if (endpoint.dir === undefined) {
@@ -103,7 +103,7 @@ export const Track = L.Class.extend({
       endpoint = {
         lng: x,
         lat: y,
-        dir: endPt.dir || dir,
+        dir: endPt.dir === undefined ? dir : endPt.dir,
         isOrigin: false,
         time: time
       }
