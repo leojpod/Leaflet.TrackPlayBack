@@ -74,7 +74,7 @@ export const Track = L.Class.extend({
     let p0 = this.getTrackPointByTime(t0)
     let p1 = this.getTrackPointByTime(t1)
     startPt = L.point(p0.lng, p0.lat)
-    let endPt_ = L.point(p1.lng, p1.lat)
+    endPt = L.point(p1.lng, p1.lat)
     let s = startPt.distanceTo(endPt)
     // 不同时间在同一个点情形
     if (s <= 0) {
@@ -84,16 +84,18 @@ export const Track = L.Class.extend({
     // 假设目标在两点间做匀速直线运动
     // 求解速度向量，并计算时间 t 目标所在位置
     let v = s / (t1 - t0)
-    let sinx = (endPt_.y - startPt.y) / s
-    let cosx = (endPt_.x - startPt.x) / s
+    let sinx = (endPt.y - startPt.y) / s
+    let cosx = (endPt.x - startPt.x) / s
     let step = v * (t - t0)
     let x = startPt.x + step * cosx
     let y = startPt.y + step * sinx
     // 求目标的运动方向，0-360度
     let dir =
-      endPt_.x >= startPt.x
+      endPt.x >= startPt.x
         ? ((Math.PI * 0.5 - Math.asin(sinx)) * 180) / Math.PI
         : ((Math.PI * 1.5 + Math.asin(sinx)) * 180) / Math.PI
+
+    console.log('WTF is going on...', { endpoint, endPt })
 
     if (endpoint) {
       if (endpoint.dir === undefined) {
@@ -103,7 +105,7 @@ export const Track = L.Class.extend({
       endpoint = {
         lng: x,
         lat: y,
-        dir: endPt.dir === undefined ? dir : endPt.dir,
+        dir: p1.dir === undefined ? dir : p1.dir,
         isOrigin: false,
         time: time
       }
