@@ -736,7 +736,7 @@ const $5dace5a9464e31c4$export$dca20402ebea5ece = (0, ($parcel$interopDefault($g
         this._ctx.fillStyle = this.targetOptions.fillColor;
         this._ctx.strokeStyle = this.targetOptions.color;
         this._ctx.translate(point.x, point.y);
-        // this._ctx.rotate((Math.PI / 180) * rotate)
+        this._ctx.rotate(Math.PI / 180 * rotate);
         this._ctx.beginPath();
         this._ctx.moveTo(0, 0 - h / 2);
         this._ctx.lineTo(0 - w / 2, 0 - h / 2 + dh);
@@ -759,9 +759,7 @@ const $5dace5a9464e31c4$export$dca20402ebea5ece = (0, ($parcel$interopDefault($g
         };
         this._ctx.save();
         this._ctx.translate(point.x, point.y);
-        // if (trackpoint.dir !== 0) {
-        // this._ctx.rotate((Math.PI / 180) * dir)
-        // }
+        if (trackpoint.dir !== 0) this._ctx.rotate(Math.PI / 180 * dir);
         this._ctx.drawImage(this._targetImg, 0 - offset.x, 0 - offset.y, width, height);
         this._ctx.restore();
     },
