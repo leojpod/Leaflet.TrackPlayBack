@@ -306,9 +306,9 @@ export const Draw = L.Class.extend({
     }
     this._ctx.save()
     this._ctx.translate(point.x, point.y)
-    if (trackpoint.dir !== 0) {
-      this._ctx.rotate((Math.PI / 180) * dir)
-    }
+    // if (trackpoint.dir !== 0) {
+    // this._ctx.rotate((Math.PI / 180) * dir)
+    // }
     this._ctx.drawImage(
       this._targetImg,
       0 - offset.x,
