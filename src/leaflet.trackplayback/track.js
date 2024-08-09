@@ -95,8 +95,6 @@ export const Track = L.Class.extend({
         ? ((Math.PI * 0.5 - Math.asin(sinx)) * 180) / Math.PI
         : ((Math.PI * 1.5 + Math.asin(sinx)) * 180) / Math.PI
 
-    console.log('WTF is going on...', { endpoint, endPt })
-
     if (endpoint) {
       if (endpoint.dir === undefined) {
         endpoint.dir = dir

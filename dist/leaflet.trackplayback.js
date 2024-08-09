@@ -264,10 +264,6 @@ const $b307d268df14f4b2$export$13921ac0cc260818 = (0, ($parcel$interopDefault($g
         let y = startPt.y + step * sinx;
         // 求目标的运动方向，0-360度
         let dir = endPt.x >= startPt.x ? (Math.PI * 0.5 - Math.asin(sinx)) * 180 / Math.PI : (Math.PI * 1.5 + Math.asin(sinx)) * 180 / Math.PI;
-        console.log("WTF is going on...", {
-            endpoint: endpoint,
-            endPt: endPt
-        });
         if (endpoint) {
             if (endpoint.dir === undefined) endpoint.dir = dir;
         } else endpoint = {
