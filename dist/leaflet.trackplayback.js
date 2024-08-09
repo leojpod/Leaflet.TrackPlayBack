@@ -247,7 +247,7 @@ const $b307d268df14f4b2$export$13921ac0cc260818 = (0, ($parcel$interopDefault($g
         let p0 = this.getTrackPointByTime(t0);
         let p1 = this.getTrackPointByTime(t1);
         startPt = (0, ($parcel$interopDefault($gXNCa$leaflet))).point(p0.lng, p0.lat);
-        endPt = (0, ($parcel$interopDefault($gXNCa$leaflet))).point(p1.lng, p1.lat);
+        endPt_ = (0, ($parcel$interopDefault($gXNCa$leaflet))).point(p1.lng, p1.lat);
         let s = startPt.distanceTo(endPt);
         // 不同时间在同一个点情形
         if (s <= 0) {
@@ -257,17 +257,13 @@ const $b307d268df14f4b2$export$13921ac0cc260818 = (0, ($parcel$interopDefault($g
         // 假设目标在两点间做匀速直线运动
         // 求解速度向量，并计算时间 t 目标所在位置
         let v = s / (t1 - t0);
-        let sinx = (endPt.y - startPt.y) / s;
-        let cosx = (endPt.x - startPt.x) / s;
+        let sinx = (endPt_.y - startPt.y) / s;
+        let cosx = (endPt_.x - startPt.x) / s;
         let step = v * (t - t0);
         let x = startPt.x + step * cosx;
         let y = startPt.y + step * sinx;
         // 求目标的运动方向，0-360度
-        let dir = endPt.x >= startPt.x ? (Math.PI * 0.5 - Math.asin(sinx)) * 180 / Math.PI : (Math.PI * 1.5 + Math.asin(sinx)) * 180 / Math.PI;
-        console.log("WTF is going on...", {
-            endpoint: endpoint,
-            endPt: endPt
-        });
+        let dir = endPt_.x >= startPt.x ? (Math.PI * 0.5 - Math.asin(sinx)) * 180 / Math.PI : (Math.PI * 1.5 + Math.asin(sinx)) * 180 / Math.PI;
         if (endpoint) {
             if (endpoint.dir === undefined) endpoint.dir = dir;
         } else endpoint = {
